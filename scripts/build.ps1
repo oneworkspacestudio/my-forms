@@ -1,5 +1,6 @@
 param([string]$Go='go',[string]$Version='0.1.0-preview.1',[string]$Output='', [switch]$Release)
 $ErrorActionPreference='Stop'
+function FileSHA([string]$Path){$stream=[IO.File]::OpenRead($Path);$digest=[Security.Cryptography.SHA256]::Create();try{return ([BitConverter]::ToString($digest.ComputeHash($stream))).Replace('-','').ToLowerInvariant()}finally{$stream.Dispose();$digest.Dispose()}}
 $root=Split-Path $PSScriptRoot -Parent
 if(-not $Output){$Output=Join-Path $root 'dist'}
 $Output=[IO.Path]::GetFullPath($Output)
@@ -30,7 +31,7 @@ try {
  Add-Type -AssemblyName System.IO.Compression.FileSystem
  $archive=Join-Path $Output ('my-forms-'+$Version+'-windows-amd64.zip')
  [IO.Compression.ZipFile]::CreateFromDirectory($stage,$archive,[IO.Compression.CompressionLevel]::Optimal,$false)
- $sums=foreach($file in @((Join-Path $Output 'MyForms.exe'),$archive)){(Get-FileHash -LiteralPath $file -Algorithm SHA256).Hash.ToLowerInvariant()+'  '+[IO.Path]::GetFileName($file)}
+ $sums=foreach($file in @((Join-Path $Output 'MyForms.exe'),$archive)){(FileSHA $file)+'  '+[IO.Path]::GetFileName($file)}
  [IO.File]::WriteAllLines((Join-Path $Output 'SHA256SUMS.txt'),$sums,[Text.UTF8Encoding]::new($false))
  Write-Output ('Packaged '+$archive)
 } finally {Pop-Location}
