@@ -1,0 +1,8 @@
+{
+  "windowsAMD64": true,
+  "imports": [
+    "kernel32.dll"
+  ],
+  "reproducibleBinary": true,
+  "sha256": "8478db551516c5d5ad635f010ba712504794c1eb32990aaded36d6b34f7b3c7a"
+}
