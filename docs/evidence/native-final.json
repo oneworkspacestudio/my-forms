@@ -1,0 +1,10 @@
+{
+  "restartRecoveredResponses": true,
+  "realDefenderScan": true,
+  "realDriveUpload": true,
+  "editRetainsAttachments": true,
+  "downloadIntegrity": true,
+  "anonymousAttachmentDenied": true,
+  "reindexPassed": true,
+  "form": "f2ae2ebaa3b634bbe680fc4040724297384a73223122dc34"
+}

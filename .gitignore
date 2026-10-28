@@ -1,0 +1,6 @@
+/dist/
+/data/
+*.exe
+*.sqlite*
+/node_modules/
+.env

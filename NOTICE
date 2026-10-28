@@ -1,0 +1,7 @@
+My Forms
+Copyright 2026 One Workspace contributors.
+
+Original native form service and interface, licensed under Apache-2.0.
+Uses One Workspace's shared apphost for OneAccount OIDC and managed sessions.
+SurveyKing and OpnForm were evaluated; no code or proprietary assets from them
+are included. Complete dependency license texts accompany release packages.

@@ -1,0 +1,12 @@
+{
+  "form": "33d3998f5d464d872bcf5e19c026bc1205293e58b73d0e1f",
+  "response": "f04f3824355d3c76713a555a2f984b2706b34e5eed58fc45",
+  "publicURL": "http://localhost:19300/forms/#/f/33d3998f5d464d872bcf5e19c026bc1205293e58b73d0e1f",
+  "editorURL": "http://localhost:19300/forms/#/edit/33d3998f5d464d872bcf5e19c026bc1205293e58b73d0e1f",
+  "nativeOIDC": true,
+  "driveCreatePublishSubmit": true,
+  "idempotentRetry": true,
+  "csvXlsxJson": true,
+  "exportsSavedToDrive": true,
+  "anonymousResponsesDenied": true
+}

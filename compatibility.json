@@ -1,0 +1,11 @@
+{
+ "schema":1,
+ "version":"0.1.0-preview.1",
+ "workspaceInstallerIntegration":2,
+ "minimumWorkspaceVersion":"0.3.0-preview.97",
+ "route":"/forms",
+ "health":"/healthz",
+ "readiness":"/readyz",
+ "identity":"oneaccount-oidc-pkce",
+ "storage":"workspace-forms-drive-v1"
+}

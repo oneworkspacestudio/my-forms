@@ -1,0 +1,898 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "My Forms internal API",
+    "version": "0.1.0-preview.1",
+    "description": "Preview contract. Field schemas remain documented in model.go; route inventory is machine-readable."
+  },
+  "paths": {
+    "/api/v1/forms": {
+      "get": {
+        "summary": "List accessible forms",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success; immutable data acknowledged after Drive read-back"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Sign-in required"
+          },
+          "403": {
+            "description": "Permission or CSRF denied"
+          },
+          "404": {
+            "description": "Not found or inaccessible"
+          },
+          "409": {
+            "description": "Version conflict or closed form"
+          },
+          "503": {
+            "description": "Drive or scanner unavailable"
+          }
+        },
+        "security": [
+          {
+            "oneaccountSession": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Create a form",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success; immutable data acknowledged after Drive read-back"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Sign-in required"
+          },
+          "403": {
+            "description": "Permission or CSRF denied"
+          },
+          "404": {
+            "description": "Not found or inaccessible"
+          },
+          "409": {
+            "description": "Version conflict or closed form"
+          },
+          "503": {
+            "description": "Drive or scanner unavailable"
+          }
+        },
+        "security": [
+          {
+            "oneaccountSession": []
+          }
+        ],
+        "description": "Same-origin request. Author mutations require X-CSRF-Token. See internal/forms/model.go for schema-1 fields; request-specific structs are in app.go. Binary uploads use the request body, X-File-Name and X-Form-Challenge."
+      }
+    },
+    "/api/v1/forms/{id}": {
+      "get": {
+        "summary": "Read draft",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{48}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success; immutable data acknowledged after Drive read-back"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Sign-in required"
+          },
+          "403": {
+            "description": "Permission or CSRF denied"
+          },
+          "404": {
+            "description": "Not found or inaccessible"
+          },
+          "409": {
+            "description": "Version conflict or closed form"
+          },
+          "503": {
+            "description": "Drive or scanner unavailable"
+          }
+        },
+        "security": [
+          {
+            "oneaccountSession": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "Save with expected revision",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{48}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success; immutable data acknowledged after Drive read-back"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Sign-in required"
+          },
+          "403": {
+            "description": "Permission or CSRF denied"
+          },
+          "404": {
+            "description": "Not found or inaccessible"
+          },
+          "409": {
+            "description": "Version conflict or closed form"
+          },
+          "503": {
+            "description": "Drive or scanner unavailable"
+          }
+        },
+        "security": [
+          {
+            "oneaccountSession": []
+          }
+        ],
+        "description": "Same-origin request. Author mutations require X-CSRF-Token. See internal/forms/model.go for schema-1 fields; request-specific structs are in app.go. Binary uploads use the request body, X-File-Name and X-Form-Challenge."
+      }
+    },
+    "/api/v1/forms/{id}/action": {
+      "post": {
+        "summary": "Publish, close, archive, restore, share or tombstone a response",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{48}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success; immutable data acknowledged after Drive read-back"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Sign-in required"
+          },
+          "403": {
+            "description": "Permission or CSRF denied"
+          },
+          "404": {
+            "description": "Not found or inaccessible"
+          },
+          "409": {
+            "description": "Version conflict or closed form"
+          },
+          "503": {
+            "description": "Drive or scanner unavailable"
+          }
+        },
+        "security": [
+          {
+            "oneaccountSession": []
+          }
+        ],
+        "description": "Same-origin request. Author mutations require X-CSRF-Token. See internal/forms/model.go for schema-1 fields; request-specific structs are in app.go. Binary uploads use the request body, X-File-Name and X-Form-Challenge."
+      }
+    },
+    "/api/v1/forms/{id}/versions": {
+      "get": {
+        "summary": "List revisions or fetch a draft revision",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{48}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success; immutable data acknowledged after Drive read-back"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Sign-in required"
+          },
+          "403": {
+            "description": "Permission or CSRF denied"
+          },
+          "404": {
+            "description": "Not found or inaccessible"
+          },
+          "409": {
+            "description": "Version conflict or closed form"
+          },
+          "503": {
+            "description": "Drive or scanner unavailable"
+          }
+        },
+        "security": [
+          {
+            "oneaccountSession": []
+          }
+        ]
+      }
+    },
+    "/api/v1/forms/{id}/responses": {
+      "get": {
+        "summary": "Paginated responses and aggregate summary",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{48}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success; immutable data acknowledged after Drive read-back"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Sign-in required"
+          },
+          "403": {
+            "description": "Permission or CSRF denied"
+          },
+          "404": {
+            "description": "Not found or inaccessible"
+          },
+          "409": {
+            "description": "Version conflict or closed form"
+          },
+          "503": {
+            "description": "Drive or scanner unavailable"
+          }
+        },
+        "security": [
+          {
+            "oneaccountSession": []
+          }
+        ]
+      }
+    },
+    "/api/v1/forms/{id}/grade": {
+      "post": {
+        "summary": "Grade a response with expected version",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{48}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success; immutable data acknowledged after Drive read-back"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Sign-in required"
+          },
+          "403": {
+            "description": "Permission or CSRF denied"
+          },
+          "404": {
+            "description": "Not found or inaccessible"
+          },
+          "409": {
+            "description": "Version conflict or closed form"
+          },
+          "503": {
+            "description": "Drive or scanner unavailable"
+          }
+        },
+        "security": [
+          {
+            "oneaccountSession": []
+          }
+        ],
+        "description": "Same-origin request. Author mutations require X-CSRF-Token. See internal/forms/model.go for schema-1 fields; request-specific structs are in app.go. Binary uploads use the request body, X-File-Name and X-Form-Challenge."
+      }
+    },
+    "/api/v1/forms/{id}/export": {
+      "get": {
+        "summary": "Download CSV, XLSX or JSON",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{48}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success; immutable data acknowledged after Drive read-back"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Sign-in required"
+          },
+          "403": {
+            "description": "Permission or CSRF denied"
+          },
+          "404": {
+            "description": "Not found or inaccessible"
+          },
+          "409": {
+            "description": "Version conflict or closed form"
+          },
+          "503": {
+            "description": "Drive or scanner unavailable"
+          }
+        },
+        "security": [
+          {
+            "oneaccountSession": []
+          }
+        ]
+      },
+      "post": {
+        "summary": "Save export to Drive",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{48}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success; immutable data acknowledged after Drive read-back"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Sign-in required"
+          },
+          "403": {
+            "description": "Permission or CSRF denied"
+          },
+          "404": {
+            "description": "Not found or inaccessible"
+          },
+          "409": {
+            "description": "Version conflict or closed form"
+          },
+          "503": {
+            "description": "Drive or scanner unavailable"
+          }
+        },
+        "security": [
+          {
+            "oneaccountSession": []
+          }
+        ],
+        "description": "Same-origin request. Author mutations require X-CSRF-Token. See internal/forms/model.go for schema-1 fields; request-specific structs are in app.go. Binary uploads use the request body, X-File-Name and X-Form-Challenge."
+      }
+    },
+    "/api/v1/forms/{id}/media": {
+      "post": {
+        "summary": "Scan and store author image",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{48}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success; immutable data acknowledged after Drive read-back"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Sign-in required"
+          },
+          "403": {
+            "description": "Permission or CSRF denied"
+          },
+          "404": {
+            "description": "Not found or inaccessible"
+          },
+          "409": {
+            "description": "Version conflict or closed form"
+          },
+          "503": {
+            "description": "Drive or scanner unavailable"
+          }
+        },
+        "security": [
+          {
+            "oneaccountSession": []
+          }
+        ],
+        "description": "Same-origin request. Author mutations require X-CSRF-Token. See internal/forms/model.go for schema-1 fields; request-specific structs are in app.go. Binary uploads use the request body, X-File-Name and X-Form-Challenge."
+      }
+    },
+    "/api/v1/forms/{id}/media/{file}": {
+      "get": {
+        "summary": "Read private draft media",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{48}$"
+            }
+          },
+          {
+            "name": "file",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{48}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success; immutable data acknowledged after Drive read-back"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Sign-in required"
+          },
+          "403": {
+            "description": "Permission or CSRF denied"
+          },
+          "404": {
+            "description": "Not found or inaccessible"
+          },
+          "409": {
+            "description": "Version conflict or closed form"
+          },
+          "503": {
+            "description": "Drive or scanner unavailable"
+          }
+        },
+        "security": [
+          {
+            "oneaccountSession": []
+          }
+        ]
+      }
+    },
+    "/api/v1/forms/{id}/files/{file}": {
+      "get": {
+        "summary": "Download a response attachment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{48}$"
+            }
+          },
+          {
+            "name": "file",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{48}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success; immutable data acknowledged after Drive read-back"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Sign-in required"
+          },
+          "403": {
+            "description": "Permission or CSRF denied"
+          },
+          "404": {
+            "description": "Not found or inaccessible"
+          },
+          "409": {
+            "description": "Version conflict or closed form"
+          },
+          "503": {
+            "description": "Drive or scanner unavailable"
+          }
+        },
+        "security": [
+          {
+            "oneaccountSession": []
+          }
+        ]
+      }
+    },
+    "/api/v1/public/{id}": {
+      "get": {
+        "summary": "Read published form and submission challenge",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{48}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success; immutable data acknowledged after Drive read-back"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Sign-in required"
+          },
+          "403": {
+            "description": "Permission or CSRF denied"
+          },
+          "404": {
+            "description": "Not found or inaccessible"
+          },
+          "409": {
+            "description": "Version conflict or closed form"
+          },
+          "503": {
+            "description": "Drive or scanner unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1/public/{id}/responses": {
+      "post": {
+        "summary": "Idempotent response create or authorised edit",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{48}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success; immutable data acknowledged after Drive read-back"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Sign-in required"
+          },
+          "403": {
+            "description": "Permission or CSRF denied"
+          },
+          "404": {
+            "description": "Not found or inaccessible"
+          },
+          "409": {
+            "description": "Version conflict or closed form"
+          },
+          "503": {
+            "description": "Drive or scanner unavailable"
+          }
+        },
+        "description": "Same-origin request. Author mutations require X-CSRF-Token. See internal/forms/model.go for schema-1 fields; request-specific structs are in app.go. Binary uploads use the request body, X-File-Name and X-Form-Challenge."
+      }
+    },
+    "/api/v1/public/{id}/uploads": {
+      "post": {
+        "summary": "Scan and store respondent attachment",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{48}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success; immutable data acknowledged after Drive read-back"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Sign-in required"
+          },
+          "403": {
+            "description": "Permission or CSRF denied"
+          },
+          "404": {
+            "description": "Not found or inaccessible"
+          },
+          "409": {
+            "description": "Version conflict or closed form"
+          },
+          "503": {
+            "description": "Drive or scanner unavailable"
+          }
+        },
+        "description": "Same-origin request. Author mutations require X-CSRF-Token. See internal/forms/model.go for schema-1 fields; request-specific structs are in app.go. Binary uploads use the request body, X-File-Name and X-Form-Challenge."
+      }
+    },
+    "/api/v1/public/{id}/receipt/{response}": {
+      "get": {
+        "summary": "Receipt or editable response with X-Response-Token",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{48}$"
+            }
+          },
+          {
+            "name": "response",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{48}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success; immutable data acknowledged after Drive read-back"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Sign-in required"
+          },
+          "403": {
+            "description": "Permission or CSRF denied"
+          },
+          "404": {
+            "description": "Not found or inaccessible"
+          },
+          "409": {
+            "description": "Version conflict or closed form"
+          },
+          "503": {
+            "description": "Drive or scanner unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1/public/{id}/media/{file}": {
+      "get": {
+        "summary": "Read referenced published image",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{48}$"
+            }
+          },
+          {
+            "name": "file",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{48}$"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success; immutable data acknowledged after Drive read-back"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Sign-in required"
+          },
+          "403": {
+            "description": "Permission or CSRF denied"
+          },
+          "404": {
+            "description": "Not found or inaccessible"
+          },
+          "409": {
+            "description": "Version conflict or closed form"
+          },
+          "503": {
+            "description": "Drive or scanner unavailable"
+          }
+        }
+      }
+    },
+    "/api/v1/reindex": {
+      "post": {
+        "summary": "Owner integrity reconciliation",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success; immutable data acknowledged after Drive read-back"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Sign-in required"
+          },
+          "403": {
+            "description": "Permission or CSRF denied"
+          },
+          "404": {
+            "description": "Not found or inaccessible"
+          },
+          "409": {
+            "description": "Version conflict or closed form"
+          },
+          "503": {
+            "description": "Drive or scanner unavailable"
+          }
+        },
+        "security": [
+          {
+            "oneaccountSession": []
+          }
+        ],
+        "description": "Same-origin request. Author mutations require X-CSRF-Token. See internal/forms/model.go for schema-1 fields; request-specific structs are in app.go. Binary uploads use the request body, X-File-Name and X-Form-Challenge."
+      }
+    },
+    "/readyz": {
+      "get": {
+        "summary": "Drive index readiness",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success; immutable data acknowledged after Drive read-back"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Sign-in required"
+          },
+          "403": {
+            "description": "Permission or CSRF denied"
+          },
+          "404": {
+            "description": "Not found or inaccessible"
+          },
+          "409": {
+            "description": "Version conflict or closed form"
+          },
+          "503": {
+            "description": "Drive or scanner unavailable"
+          }
+        }
+      }
+    },
+    "/healthz": {
+      "get": {
+        "summary": "Process health",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success; immutable data acknowledged after Drive read-back"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "401": {
+            "description": "Sign-in required"
+          },
+          "403": {
+            "description": "Permission or CSRF denied"
+          },
+          "404": {
+            "description": "Not found or inaccessible"
+          },
+          "409": {
+            "description": "Version conflict or closed form"
+          },
+          "503": {
+            "description": "Drive or scanner unavailable"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "oneaccountSession": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "managed-apphost-session",
+        "description": "Name is supplied by shared apphost configuration; use the OneAccount login flow."
+      }
+    }
+  }
+}
