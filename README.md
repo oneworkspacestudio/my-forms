@@ -14,7 +14,7 @@ The Windows package contains one native `MyForms.exe`; no Node, Java, Python,
 Docker or separate database installation is needed. The managed installation
 provides identity, protected local session storage and the scoped My Drive API.
 
-The first preview requires the Workspace 97 integration. Its source is available
+The first preview requires the Workspace 98 integration. Its source is available
 in [One Workspace](https://github.com/oneworkspacestudio/one-workspace).
 Do not run the executable without configuring its managed integrations.
 
